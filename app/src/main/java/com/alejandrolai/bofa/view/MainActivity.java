@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if (!newText.isEmpty() && mGoogleApiClient.isConnected()) {
+            adapter.getFilter().filter(newText);
+        }
         return false;
     }
 

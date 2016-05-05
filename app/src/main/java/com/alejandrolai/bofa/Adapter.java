@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class Adapter extends RecyclerView.Adapter<Adapter.PredictionHolder> implements Filterable{
 
     private ArrayList<PlaceAutocomplete> mResultList;
@@ -142,7 +139,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PredictionHolder> impl
         mPredictionHolder.mPrediction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,ResultActivity.class);
+                Intent intent = new Intent(mContext, ResultActivity.class);
                 intent.putExtra("PlaceId",mResultList.get(i).placeId.toString());
                 mContext.startActivity(intent);
             }
@@ -161,11 +158,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PredictionHolder> impl
         return mResultList.get(position);
     }
 
-    public class PredictionHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.address) TextView mPrediction;
+    public class PredictionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mPrediction;
         public PredictionHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            mPrediction = (TextView) itemView.findViewById(R.id.address);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(),"Click",Toast.LENGTH_SHORT).show();
+            Log.d("Main layout",getItem(getLayoutPosition()).description.toString());
+            Log.d("Main adapter",getItem(getAdapterPosition()).description.toString());
+            // intent.putExtra("PlaceId",getItem(getLayoutPosition()).placeId);
         }
     }
 

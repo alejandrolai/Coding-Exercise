@@ -15,8 +15,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -26,20 +24,23 @@ import okhttp3.Response;
 public class ResultActivity extends AppCompatActivity {
 
     private Place mPlace;
-
-    @BindView(R.id.placeID) TextView placeId;
-    @BindView(R.id.placeName) TextView placeName;
-    @BindView(R.id.placeAddress) TextView placeAddress;
+    TextView placeId;
+    TextView placeName;
+    TextView placeAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         getPlace(intent.getStringExtra("PlaceId"));
+
+        placeId = (TextView) findViewById(R.id.placeID);
+        placeName = (TextView)findViewById(R.id.placeName);
+        placeAddress = (TextView) findViewById(R.id.placeAddress);
     }
+
 
     private void getPlace(String placeId) {
         String url = "https://" +
@@ -79,8 +80,7 @@ public class ResultActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        Toast.makeText(ResultActivity.this,"Could not get place details",Toast.LENGTH_SHORT).show();
-                        Log.e("Result",response.toString());
+                        Log.d("Result","Not successfull");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,3 +109,4 @@ public class ResultActivity extends AppCompatActivity {
         return place;
     }
 }
+
