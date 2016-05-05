@@ -3,10 +3,11 @@ package com.alejandrolai.bofa.model;
 /**
  * Created by Alejandro on 5/4/16.
  */
-public class Place {
+public class Place{
 
     private String mId;
     private String mName;
+    private String mAddress;
 
     public String getId() {
         return mId;
@@ -32,5 +33,4 @@ public class Place {
         mAddress = address;
     }
 
-    private String mAddress;
 }
